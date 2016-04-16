@@ -10,15 +10,17 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
-	s, sep := "", ""
-	for _, arg := range os.Args[1:] {
-		s += sep + arg
-		sep = " "
+	start := time.Now()
+	s := ""
+	for idx, arg := range os.Args[1:] {
+		fmt.Println(idx, arg)
 	}
 	fmt.Println(s)
+	fmt.Printf("runs %f seconds\n", time.Since(start).Seconds())
 }
 
 //!-
