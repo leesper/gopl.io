@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-
+	"time"
 	"gopl.io/ch4/github"
 )
 
@@ -23,8 +23,19 @@ func main() {
 	}
 	fmt.Printf("%d issues:\n", result.TotalCount)
 	for _, item := range result.Items {
-		fmt.Printf("#%-5d %9.9s %.55s\n",
-			item.Number, item.User.Login, item.Title)
+		fmt.Printf("#%-5d %9.9s %.55s %s\n",
+			item.Number, item.User.Login, item.Title, parseTime(item.CreatedAt))
+	}
+}
+
+func parseTime(created time.Time) string {
+	hours := time.Since(created)
+	if hours < 30 * 24 {
+		return "less than a month old"
+	} else if hours < 365 * 24 {
+		return "less than a year old"
+	} else {
+		return "more than a year old"
 	}
 }
 
